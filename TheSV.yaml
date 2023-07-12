@@ -1,0 +1,4 @@
+train: ..\data
+val: ..\data
+nc: 4
+names: ['MSSV','HoTen','Khoa','UIT']

@@ -7,7 +7,11 @@ from PIL import Image
 from vietocr.tool.predictor import Predictor
 from vietocr.tool.config import Cfg
 import cv2
+from ultralytics import YOLO
+import ultralytics
 
+model = YOLO('yolov8n.pt')
+# model.train(data='TheSV.yaml',epochs=10)
 
 st.columns(2)
 
@@ -22,19 +26,18 @@ with col1:
         st.image(image, caption="The caption", use_column_width=True)
 
 
-
 with col3:
     st.header("Retrieve Information:")
     button = st.button("Retrieve Information:")
     if button:
         st.write("run")        
+        
         config = Cfg.load_config_from_name('vgg_transformer')
         config['cnn']['pretrained']=False
         config['device'] = 'cpu'
-        
         detector = Predictor(config)
-        st.write(image)
         s = detector.predict(image)        
+        
+        
         st.header("Result:")
         st.write(s)
-
